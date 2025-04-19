@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1745078323 source:c:\users\cuong\desktop\gameproject\main\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	"graphics.h"
+	"defs.h"
+	"logic.h"
+	"map.h"
+
+1745078759 c:\users\cuong\desktop\gameproject\main\graphics.h
+	<SDL.h>
+	<SDL_image.h>
+	"defs.h"
+	<vector>
+
+1745081952 c:\users\cuong\desktop\gameproject\main\defs.h
+
+1745068003 c:\users\cuong\desktop\gameproject\main\logic.h
+
+1745077260 source:c:\users\cuong\desktop\gameproject\main\map.cpp
+	"Map.h"
+	<SDL2/SDL_image.h>
+
+1745077260 c:\users\cuong\desktop\gameproject\main\map.h
+	<SDL2/SDL.h>
+
