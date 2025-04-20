@@ -23,7 +23,6 @@ struct Tictactoe {
     }
 
     bool checkWin(char player) {
-        // Kiểm tra hàng
         for (int i = 0; i < BOARD_SIZE; ++i) {
             bool win = true;
             for (int j = 0; j < BOARD_SIZE; ++j) {
@@ -35,7 +34,6 @@ struct Tictactoe {
             if (win) return true;
         }
 
-        // Kiểm tra cột
         for (int j = 0; j < BOARD_SIZE; ++j) {
             bool win = true;
             for (int i = 0; i < BOARD_SIZE; ++i) {
@@ -47,7 +45,6 @@ struct Tictactoe {
             if (win) return true;
         }
 
-        // Kiểm tra đường chéo chính
         bool win = true;
         for (int i = 0; i < BOARD_SIZE; ++i) {
             if (board[i][i] != player) {
@@ -57,7 +54,6 @@ struct Tictactoe {
         }
         if (win) return true;
 
-        // Kiểm tra đường chéo phụ
         win = true;
         for (int i = 0; i < BOARD_SIZE; ++i) {
             if (board[i][BOARD_SIZE - 1 - i] != player) {
@@ -70,7 +66,6 @@ struct Tictactoe {
         return false;
     }
 
-    // Kiểm tra hòa (tất cả ô đều đầy và không ai thắng)
     bool isDraw() {
         for (int i = 0; i < BOARD_SIZE; ++i)
             for (int j = 0; j < BOARD_SIZE; ++j)

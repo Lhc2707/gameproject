@@ -81,10 +81,19 @@ struct Graphics {
     {
         SDL_Rect dest;
 
+        // Gán vị trí
         dest.x = x;
         dest.y = y;
-        SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
 
+        // Lấy kích thước gốc
+        int originalW, originalH;
+        SDL_QueryTexture(texture, NULL, NULL, &originalW, &originalH);
+
+        // Thu nhỏ kích thước
+        dest.w = originalW / 6;
+        dest.h = originalH / 6;
+
+        // Vẽ texture lên renderer với kích thước mới
         SDL_RenderCopy(renderer, texture, NULL, &dest);
     }
 
