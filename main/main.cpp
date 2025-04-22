@@ -1,73 +1,228 @@
 #include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
 #include "graphics.h"
-#include "defs.h"
-#include "logic.h"
-#include "map.h"
+#include "Character.h"
+#include "Zombie.h"
+#include "Input_Valuable.h"
+#include "Sound.h"
+#include "Text.h"
+
 using namespace std;
 
-void waitUntilKeyPressed()
+
+void renderBackground(SDL_Texture *texture, SDL_Renderer *renderer)
 {
+    SDL_Rect tmp;
+    tmp.x = 0;
+    tmp.y = 0;
+    SDL_QueryTexture(texture, 0, 0, &tmp.w, &tmp.h);
+    tmp.w = tmp.w / 3 * 2;
+    tmp.h = tmp.h / 3 * 2;
+
+    SDL_RenderCopy(renderer, texture, 0, &tmp);
+}
+
+char* getstringandint(string s, int val)
+{
+    string ss;
+    if (val == 0)
+    {
+        ss.push_back('0');
+    }
+    else
+    {
+        while (val > 0)
+        {
+            ss.push_back('0' + (val % 10));
+            val /= 10;
+        }
+        reverse(ss.begin(), ss.end());
+    }
+    char *res;
+    res = new char[int(s.size() + ss.size()) + 1];
+    for(int i = 0; i < s.size(); i++) res[i] = s[i];
+    for(int i = 0; i < ss.size(); i++) res[i + s.size()] = ss[i];
+    res[int(s.size() + ss.size())] = '\0';
+    return res;
+}
+
+void get_high_score()
+{
+    ifstream inp;
+    inp.open("HighScore.txt");
+    inp >> highscore;
+    inp.close();
+}
+
+void update_high_score()
+{
+    ofstream out;
+    out.open("HighScore.txt");
+    highscore = max(highscore, score);
+    out << highscore;
+    out.close();
+}
+
+char *s;
+void Ending()
+{
+    update_high_score();
     SDL_Event e;
-    while (true) {
-        if ( SDL_PollEvent(&e) != 0 &&
-             (e.type == SDL_KEYDOWN || e.type == SDL_QUIT) )
-            return;
-        SDL_Delay(100);
+    SDL_Delay(500);
+    End_Music_Game();
+    End_Zombie_Music();
+    Lose_Sound();
+    int cnt = 0;
+    while(cnt <= 10)
+    {
+        SDL_Delay(40);
+        renderBackground(BG, renderer);
+        character.RenderCharacter(renderer, jumpping, attacking);
+        SDL_RenderPresent(renderer);
+        character.dead();
+        cnt++;
+    }
+
+    renText("The End !!!", 100, SCREEN_WIDTH / 2 - 350, SCREEN_HEIGHT / 2 - 150, 225, 225, 225);
+    renText(getstringandint("Score: ", score), 50, SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 50, 225, 225, 225);
+    renText(getstringandint("HIGH SCORE: ", highscore), 50, SCREEN_WIDTH / 2 - 250, SCREEN_HEIGHT / 2, 225, 225, 225);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(2000);
+
+    while(true)
+    {
+        if(SDL_PollEvent(&e) && e.type == SDL_KEYDOWN) return;
     }
 }
 
-struct Box {
-    int x, y;
-    int sz = 10;
-    void render(SDL_Renderer* render){
-        SDL_Rect filled_rect;
-        filled_rect.x = x;
-        filled_rect.y = y;
-        filled_rect.w = 10;
-        filled_rect.h = 10;
-        SDL_SetRenderDrawColor(render, 0, 255, 0, 255);
-        SDL_RenderFillRect(render, &filled_rect);
-    }
+int Rand(int l, int r)
+{
+    return rand() % (r - l + 1) + l;
+}
 
-    bool insite(int x, int y)
+void PauseGame()
+{
+    SDL_Event e;
+    renText("Game Paused", 75, SCREEN_WIDTH / 2 - 320, SCREEN_HEIGHT / 2 - 100, 255, 255, 0);
+    renText("Press P to resume", 35, SCREEN_WIDTH / 2 - 250, SCREEN_HEIGHT / 2, 255, 255, 255);
+    SDL_RenderPresent(renderer);
+
+    bool paused = true;
+    while (paused)
     {
-        return (0 <= x && x + sz <= 800 && 0 <= y && y + sz <= 600);
+        while (SDL_PollEvent(&e))
+        {
+            if (e.type == SDL_QUIT)
+            {
+                exit(0); // hoặc xử lý End = 1; return; tùy bạn
+            }
+            if (e.type == SDL_KEYDOWN)
+            {
+                if (e.key.keysym.sym == SDLK_p || e.key.keysym.sym == SDLK_SPACE || e.key.keysym.sym == SDLK_RETURN)
+                {
+                    paused = false;
+                }
+            }
+        }
+        SDL_Delay(50); // tránh CPU bị ngốn
     }
-};
+}
 
 int main(int argc, char *argv[])
 {
-    Graphics graphics;
-    graphics.init();
-    Box box;
-    int x = 200, y = 200;
+    get_high_score();
+    srand(time(0));
+    BG = loadTexture("Animation/background/background.png", renderer);
+    character.input(renderer);
+    initText();
 
+    initSound();
+    Music_BackGround();
+    renderBackground(BG, renderer);
+    renText("METAL SLUG: MEMORIES", 75, SCREEN_WIDTH / 2 - 560, SCREEN_HEIGHT / 2 - 200, 225, 225, 225);
+    renText("Press any key to start", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2, 225, 225, 225);
+    renText("P: Pause", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 30, 225, 225, 225);
+    renText("W: Jump", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 60, 225, 225, 225);
+    renText("A: Left", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 90, 225, 225, 225);
+    renText("D: Right", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 120, 225, 225, 225);
+    renText("Can heal after level up", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 150, 225, 225, 225);
+    SDL_RenderPresent(renderer);
     SDL_Event e;
-
-    while(box.insite(box.x, box.y)){
-        SDL_SetRenderDrawColor(graphics.renderer, 255, 255, 255, 255);
-        SDL_RenderClear(graphics.renderer);
-        SDL_Texture* Marco = graphics.loadTexture("marco.png");
-        graphics.renderTexture(Marco, x, y);
-        SDL_RenderPresent(graphics.renderer);
-        SDL_Delay(1);
-
-        if (SDL_WaitEvent(&e) == 0) continue;
-        if (e.type == SDL_QUIT) break;
-        if (e.type == SDL_KEYDOWN){
-            switch (e.key.keysym.sym){
-                case SDLK_ESCAPE: break;
-                case SDLK_RIGHT: x += 30; break;
-                case SDLK_LEFT: x -= 30; break;
-                case SDLK_UP: y -= 30; break;
-                case SDLK_DOWN: y += 30; break;
-
-            }
-        }
+    while(true)
+    {
+        SDL_Delay(40);
+        if(SDL_WaitEvent(&e) && e.type == SDL_KEYDOWN) break;
     }
+    End_Music_BackGround();
+    //Music_Game();
+    OneMoreZombie(renderer);
+    Zombie_Music();
 
-    waitUntilKeyPressed();
+    while (End == 0)
+    {
+        Time++;
+        renderBackground(BG, renderer);
+        character.RenderCharacter(renderer, jumpping, attacking);
+        RenderZombie(renderer);
+        if (e.type == SDL_QUIT)
+            break;
+        if (!attacking && !jumpping && SDL_PollEvent(&e) == 0);
+        SDL_Delay(20);
+        if (jumpping || attacking || e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN)
+        {
+            character.action(e);
+        }
+        ZombieAction(character.getDirection(), character.getlocation(), e );
+        health.action();
+
+        if (Time - old >= 5)
+            character.nothing();
+
+        if(score >= (10 + Level) * Level)
+        {
+            level = max(5, level - 10);
+            Level++;
+            Level_Up();
+            oldlevel = Time;
+            health.More(Rand(10, SCREEN_WIDTH - 10));
+        }
+        if(Time - oldlevel <= 100 && Level != 1)
+        {
+            int r = rand() % 226;
+            int g = rand() % 226;
+            int b = rand() % 226;
+            renText("Level Up", 100, SCREEN_WIDTH / 2 - 350, SCREEN_HEIGHT / 2 - 350, r, g, b);
+        }
+
+        if(Time - Time2 >= level)
+        {
+            OneMoreZombie(renderer);
+            Time2 = Time;
+        }
+
+        if (Time >= 1e18)
+        {
+            Time2 = Time2 - Time;
+            oldlevel = oldlevel - Time;
+            oldHeart = oldHeart - Time;
+            Time = old = 0;
+        }
+
+        renText(getstringandint("High Score: ", highscore), 25, 0, 0, 225, 225, 225);
+        renText(getstringandint("Score: ", score), 25, 0, 25, 225, 225, 225);
+        renText(getstringandint("Level: ", Level), 25, 0, 50, 225, 225, 225);
+        renText(getstringandint("Heart: ", Heart), 25, 0, 75, 225, 225, 225);
+
+        SDL_RenderPresent(renderer);
+        if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
+        PauseGame();
+    }
+    Ending();
+
+    delete(s);
+
+
+    Mix_Quit();
+    character.quit();
+    quitSDL(window, renderer);
     return 0;
 }

@@ -32,12 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="defs.h" />
+		<Unit filename="Input_Valuable.h" />
+		<Unit filename="Sound.h" />
+		<Unit filename="Text.h" />
+		<Unit filename="Zombie.h" />
+		<Unit filename="character.h" />
 		<Unit filename="graphics.h" />
-		<Unit filename="logic.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="map.cpp" />
-		<Unit filename="map.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

@@ -1,20 +1,21 @@
 # depslib dependency file v1.0
-1745125469 source:c:\users\cuong\desktop\gameproject\main\main.cpp
+1745291660 source:c:\users\cuong\desktop\gameproject\main\main.cpp
 	<iostream>
-	<SDL.h>
-	<SDL_image.h>
 	"graphics.h"
-	"defs.h"
-	"logic.h"
-	"map.h"
+	"Character.h"
+	"Zombie.h"
+	"Input_Valuable.h"
+	"Sound.h"
+	"Text.h"
 
-1745125823 c:\users\cuong\desktop\gameproject\main\graphics.h
+1745241663 c:\users\cuong\desktop\gameproject\main\graphics.h
 	<SDL.h>
 	<SDL_image.h>
-	"defs.h"
-	<vector>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+	<bits/stdc++.h>
 
-1745122417 c:\users\cuong\desktop\gameproject\main\defs.h
+1745173403 c:\users\cuong\desktop\gameproject\main\defs.h
 
 1745121955 c:\users\cuong\desktop\gameproject\main\logic.h
 
@@ -24,4 +25,32 @@
 
 1745077260 c:\users\cuong\desktop\gameproject\main\map.h
 	<SDL2/SDL.h>
+
+1745291486 c:\users\cuong\desktop\gameproject\main\character.h
+	<bits/stdc++.h>
+	<SDL.h>
+	<SDL_image.h>
+	"graphics.h"
+	"Input_Valuable.h"
+	"Text.h"
+
+1745241365 c:\users\cuong\desktop\gameproject\main\input_valuable.h
+	"SDL2/SDL.h"
+
+1745171031 c:\users\cuong\desktop\gameproject\main\text.h
+	<bits/stdc++.h>
+	<SDL2/SDL_ttf.h>
+	"Input_Valuable.h"
+	"graphics.h"
+
+1745173663 c:\users\cuong\desktop\gameproject\main\sound.h
+	<bits/stdc++.h>
+	<SDL2/SDL_mixer.h>
+	"graphics.h"
+	"Input_Valuable.h"
+
+1745251041 c:\users\cuong\desktop\gameproject\main\zombie.h
+	<bits/stdc++.h>
+	"graphics.h"
+	"Sound.h"
 
