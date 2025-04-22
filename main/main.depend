@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745291660 source:c:\users\cuong\desktop\gameproject\main\main.cpp
+1745307995 source:c:\users\cuong\desktop\gameproject\main\main.cpp
 	<iostream>
 	"graphics.h"
 	"Character.h"
@@ -26,7 +26,7 @@
 1745077260 c:\users\cuong\desktop\gameproject\main\map.h
 	<SDL2/SDL.h>
 
-1745291486 c:\users\cuong\desktop\gameproject\main\character.h
+1745308376 c:\users\cuong\desktop\gameproject\main\character.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -34,7 +34,7 @@
 	"Input_Valuable.h"
 	"Text.h"
 
-1745241365 c:\users\cuong\desktop\gameproject\main\input_valuable.h
+1745292876 c:\users\cuong\desktop\gameproject\main\input_valuable.h
 	"SDL2/SDL.h"
 
 1745171031 c:\users\cuong\desktop\gameproject\main\text.h
@@ -49,7 +49,7 @@
 	"graphics.h"
 	"Input_Valuable.h"
 
-1745251041 c:\users\cuong\desktop\gameproject\main\zombie.h
+1745308450 c:\users\cuong\desktop\gameproject\main\zombie.h
 	<bits/stdc++.h>
 	"graphics.h"
 	"Sound.h"

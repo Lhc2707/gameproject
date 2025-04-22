@@ -103,7 +103,7 @@ void PauseGame()
 {
     SDL_Event e;
     renText("Game Paused", 75, SCREEN_WIDTH / 2 - 320, SCREEN_HEIGHT / 2 - 100, 255, 255, 0);
-    renText("Press P to resume", 35, SCREEN_WIDTH / 2 - 250, SCREEN_HEIGHT / 2, 255, 255, 255);
+    renText("Press P to resume", 35, SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2, 255, 255, 255);
     SDL_RenderPresent(renderer);
 
     bool paused = true;
@@ -113,7 +113,7 @@ void PauseGame()
         {
             if (e.type == SDL_QUIT)
             {
-                exit(0); // hoặc xử lý End = 1; return; tùy bạn
+                exit(0);
             }
             if (e.type == SDL_KEYDOWN)
             {
@@ -123,13 +123,41 @@ void PauseGame()
                 }
             }
         }
-        SDL_Delay(50); // tránh CPU bị ngốn
+        SDL_Delay(50);
     }
+}
+
+void Mute()
+{
+    if (muted)
+    {
+        Mix_VolumeMusic(MIX_MAX_VOLUME);
+        Mix_Volume(-1, MIX_MAX_VOLUME);
+        muted = false;
+    }
+    else
+    {
+        Mix_VolumeMusic(0);
+        Mix_Volume(-1, 0);
+        muted = true;
+    }
+}
+
+string formatTime(Uint32 ms)
+{
+    Uint32 seconds = ms / 1000;
+    Uint32 minutes = seconds / 60;
+    seconds %= 60;
+
+    string minStr = (minutes < 10 ? "0" : "") + to_string(minutes);
+    string secStr = (seconds < 10 ? "0" : "") + to_string(seconds);
+    return "Time: " + minStr + ":" + secStr;
 }
 
 int main(int argc, char *argv[])
 {
     get_high_score();
+    startTime = SDL_GetTicks();
     srand(time(0));
     BG = loadTexture("Animation/background/background.png", renderer);
     character.input(renderer);
@@ -144,7 +172,8 @@ int main(int argc, char *argv[])
     renText("W: Jump", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 60, 225, 225, 225);
     renText("A: Left", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 90, 225, 225, 225);
     renText("D: Right", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 120, 225, 225, 225);
-    renText("Can heal after level up", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 150, 225, 225, 225);
+    renText("M: Mute/UnMute", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 150, 225, 225, 225);
+    renText("Can heal after level up", 25, SCREEN_WIDTH / 2 - 210, SCREEN_HEIGHT / 2 + 180, 225, 225, 225);
     SDL_RenderPresent(renderer);
     SDL_Event e;
     while(true)
@@ -211,10 +240,13 @@ int main(int argc, char *argv[])
         renText(getstringandint("Score: ", score), 25, 0, 25, 225, 225, 225);
         renText(getstringandint("Level: ", Level), 25, 0, 50, 225, 225, 225);
         renText(getstringandint("Heart: ", Heart), 25, 0, 75, 225, 225, 225);
-
+        Uint32 currentTime = SDL_GetTicks() - startTime;
+        renText((char*)formatTime(currentTime).c_str(), 25, 0, 100, 225, 225, 225);
         SDL_RenderPresent(renderer);
         if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
-        PauseGame();
+            PauseGame();
+        else if (e.key.keysym.sym == SDLK_m)
+            Mute();
     }
     Ending();
 

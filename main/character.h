@@ -84,7 +84,6 @@ struct Character {
         dest.y = y;
 
         SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
-
         SDL_Point center;
         center.x = 0;
         center.y = 0;
@@ -210,7 +209,7 @@ struct Character {
 
 struct Health
 {
-    int y = 700;
+    int y = 675;
     int x;
     int appear = 0;
     int color = 0;
