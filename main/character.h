@@ -171,7 +171,7 @@ struct Character {
 
         if(attacking == 1)
         {
-            type_attack = 1 - type_attack;
+            type_attack = abs(1 - type_attack);
             if(act_attack >= 4)
             {
                 act_attack = 0;
@@ -193,14 +193,14 @@ struct Character {
             marco_walk[i] = NULL;
         }
 
-        for (int i = 1; i <= 9; i++)
+        for (int i = 1; i <= 7; i++)
         {
             SDL_DestroyTexture(marco_jump[i]);
             marco_jump[i] = NULL;
         }
 
         for(int i = 0; i <= 1; i++)
-            for(int j = 0; j < 5; j++){
+            for(int j = 0; j < 4; j++){
                 SDL_DestroyTexture(marco_atk[i][j]);
                 marco_atk[i][j] = NULL;
             }

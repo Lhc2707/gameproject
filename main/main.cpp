@@ -111,10 +111,6 @@ void PauseGame()
     {
         while (SDL_PollEvent(&e))
         {
-            if (e.type == SDL_QUIT)
-            {
-                exit(0);
-            }
             if (e.type == SDL_KEYDOWN)
             {
                 if (e.key.keysym.sym == SDLK_p || e.key.keysym.sym == SDLK_SPACE || e.key.keysym.sym == SDLK_RETURN)
@@ -133,8 +129,7 @@ void Mute()
     {
         Mix_VolumeMusic(MIX_MAX_VOLUME);
         Mix_Volume(-1, MIX_MAX_VOLUME);
-        muted = false;
-    }
+        muted = false;    }
     else
     {
         Mix_VolumeMusic(0);
@@ -143,10 +138,10 @@ void Mute()
     }
 }
 
-string formatTime(Uint32 ms)
+string formatTime(int ms)
 {
-    Uint32 seconds = ms / 1000;
-    Uint32 minutes = seconds / 60;
+    int seconds = ms / 1000;
+    int minutes = seconds / 60;
     seconds %= 60;
 
     string minStr = (minutes < 10 ? "0" : "") + to_string(minutes);
@@ -182,7 +177,7 @@ int main(int argc, char *argv[])
         if(SDL_WaitEvent(&e) && e.type == SDL_KEYDOWN) break;
     }
     End_Music_BackGround();
-    //Music_Game();
+    Music_Game();
     OneMoreZombie(renderer);
     Zombie_Music();
 

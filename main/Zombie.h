@@ -99,7 +99,7 @@ struct zombie
         else left();
         if (e.type == SDL_MOUSEBUTTONDOWN)
         {
-            if(direction_main + direction == 0 && abs(x - location.first) <= 35 && location.second == 650)
+            if(direction_main + direction == 0 && abs(x - location.first) <= 40 && location.second == 650)
             {
                 dead = -1;
                 Zombie_Dead_Sound();
