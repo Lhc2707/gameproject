@@ -1,2 +1,29 @@
 # gameproject
- 
+ - Họ và Tên - Mã sinh viên: Lê Hải Cường - 24021397
+ - Chủ đề game: Lấy ý tưởng thì các tựa game chém zombie 2D. Bạn sẽ điều khiển nhân vật chính để tiêu diệt phiên bản zombie của anh ấy.
+ -
+ - Một số đặc điểm:
+ - 
+ - Các nguồn tham khảo:
+  +https://youtu.be/ma-h2RxBBaY?si=-gowj3i3_Mlqukoc
+ - Nguồn âm thanh, hình ảnh:
+   - https://spritedatabase.net/game/835
+   - https://samplefocus.com/samples/8-bit-explosion
+ - Mức độ sử dụng AI: chỉ sử dụng trong mục đích tra cứu và giải thích những phần code chưa hiểu khi tiềm hiểu trên web.
+ - Mức điểm mong đợi: 8-9đ
+ - checklist:
+   - Dùng các lệnh vẽ hình
+   - texture
+   - animation
+   - background
+   - mouse events
+   - key events
+   - xử lý va chạm
+   - score
+   - lưu hightest score
+   - sound
+   - sound on off
+   - font
+   - menu
+   - pause/resume
+   - có các power up như hồi máu
