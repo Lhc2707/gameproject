@@ -16,7 +16,7 @@ SDL_Texture* marco_atk[2][18];
 SDL_Texture* marco_dead[18];
 struct Character {
     int x = SCREEN_WIDTH / 2;
-    int y = 650;
+    int y = 645;
     int speed = 10;
     int direction = 1;
     int act_walk = 0;
@@ -84,6 +84,8 @@ struct Character {
         dest.y = y;
 
         SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
+        dest.w *= 1.2;
+        dest.h *= 1.2;
         SDL_Point center;
         center.x = 0;
         center.y = 0;
@@ -229,7 +231,6 @@ struct Health
         {
             appear = 0;
             Heart++;
-//            Update();
         }
     }
 } health;

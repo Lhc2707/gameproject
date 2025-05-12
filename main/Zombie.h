@@ -53,8 +53,8 @@ struct zombie
         dest.y = y;
 
         SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
-        dest.w /= 1.25;
-        dest.h /= 1.25;
+//        dest.w /= 1.25;
+//        dest.h /= 1.25;
         SDL_Point center;
         center.x = 0;
         center.y = 0;
@@ -99,14 +99,14 @@ struct zombie
         else left();
         if (e.type == SDL_MOUSEBUTTONDOWN)
         {
-            if(direction_main + direction == 0 && abs(x - location.first) <= 40 && location.second == 650)
+            if(direction_main + direction == 0 && abs(x - location.first) <= 40)
             {
                 dead = -1;
                 Zombie_Dead_Sound();
                 score++;
             }
         }
-        else if(Time - oldHeart > 100 && dead == 0 && x == location.first)
+        else if(Time - oldHeart > 100 && dead == 0 && abs(x - location.first) <= 20 && abs(y - location.second) <= 10)
         {
             oldHeart = Time;
             Heart--;
@@ -150,4 +150,4 @@ void ZombieAction(int direction, pair<int, int> location, SDL_Event &e)
     for(zombie &x : Zombie) x.action(direction, location, e);
 }
 
-#endif // ZOMBIE
+#endif
