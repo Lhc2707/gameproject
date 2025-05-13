@@ -1,9 +1,10 @@
 # gameproject
  - Họ và Tên - Mã sinh viên: Lê Hải Cường - 24021397
  - Chủ đề game: Lấy ý tưởng thì các tựa game chém zombie 2D. Bạn sẽ điều khiển nhân vật chính để tiêu diệt phiên bản zombie của anh ấy.
- -
+   - ![image](https://github.com/Lhc2707/gameproject/blob/main/main/baocao/e1c6d6a3-e93f-478d-9076-a888cf05fc54.jpg)
  - Một số đặc điểm:
- - 
+   - Vật phầm hồi máu khi tăng cấp: ![image](https://github.com/Lhc2707/gameproject/blob/main/main/baocao/96f112a4-b343-4d76-b18a-d017cad5d33b.jpg)
+   - Các chức năng cơ bản: ![image](https://github.com/Lhc2707/gameproject/blob/main/main/baocao/d0d75017-b8e5-49c1-94ac-64c491c154f4.jpg)
  - Các nguồn tham khảo:
    - https://youtu.be/ma-h2RxBBaY?si=-gowj3i3_Mlqukoc
  - Nguồn âm thanh, hình ảnh:
