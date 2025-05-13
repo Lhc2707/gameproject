@@ -106,7 +106,7 @@ struct zombie
                 score++;
             }
         }
-        else if(Time - oldHeart > 100 && dead == 0 && abs(x - location.first) <= 20 && abs(y - location.second) <= 10)
+        else if(Time - oldHeart > 100 && dead == 0 && abs(x - location.first) <= 10 && abs(y - location.second) <= 10)
         {
             oldHeart = Time;
             Heart--;
