@@ -5,7 +5,7 @@
  - Một số đặc điểm:
  - 
  - Các nguồn tham khảo:
-  +https://youtu.be/ma-h2RxBBaY?si=-gowj3i3_Mlqukoc
+   - https://youtu.be/ma-h2RxBBaY?si=-gowj3i3_Mlqukoc
  - Nguồn âm thanh, hình ảnh:
    - https://spritedatabase.net/game/835
    - https://samplefocus.com/samples/8-bit-explosion
